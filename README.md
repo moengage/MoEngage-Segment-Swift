@@ -45,9 +45,6 @@ analytics.add(plugin: MoEngageDestination())
      let sdkConfig = MoEngageSDKConfig(withAppID: "YOUR APP ID")
      MoEngageInitializer.shared.initializeDefaultInstance(sdkConfig: sdkConfig)
      MoEngage.sharedInstance.enableSDK()
-
-     let sdkConfig = MOSDKConfig(appID: "YOUR APP ID")
-     SEGMoEngageInitializer.initializeDefaultInstance(sdkConfig)
      
      // Add your configuration key from Segment
      let analytics = Analytics(configuration: Configuration(writeKey: "<YOUR WRITE KEY>")
