@@ -1,4 +1,4 @@
-![Logo](https://github.com/moengage/MoEngage-Segment-iOS/blob/master/Images/moe_logo_blue.png)
+![Logo](https://github.com/moengage/MoEngage-Segment-Swift/blob/master/Images/moe_logo_blue.png)
 # MoEngage-Segment-Swift
 
 [![Version](https://img.shields.io/cocoapods/v/Segment-MoEngage.svg?style=flat)](http://cocoapods.org/pods/Segment-MoEngage)
@@ -33,45 +33,28 @@ let analytics = Analytics(configuration: Configuration(writeKey: "<YOUR WRITE KE
 analytics.add(plugin: MoEngageDestination())
 ```
 
-### Objective-C:
-
- ```
- #import <SEGMoEngageIntegrationFactory.h>
- #import <SEGMoEngageInitializer.h>
- #import <SEGAnalytics.h>
-
- - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    //Initialize SDKConfig object and call initializeDefaultInstance: method of SEGMoEngageInitializer
-    MOSDKConfig* sdkConfig = [[MOSDKConfig alloc] initWithAppID:@"YOUR APP ID"];
-    [SEGMoEngageInitializer initializeDefaultInstance:sdkConfig];
-    
-    // Add your configuration key from Segment
-    SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"configuration key"];
-
-    // Add MoEngageIntegrationFactory. Without this data will not come to MoEngage.
-    [config use:[SEGMoEngageIntegrationFactory instance]];
-    [SEGAnalytics setupWithConfiguration:config];
-  }
-  ```
- 
- 
 ### Swift:
 
  ```
  import Segment_MoEngage
+ import MoEngageSDK
  ...
  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey:  Any]?) -> Bool {
  ...
+ 
+     let sdkConfig = MoEngageSDKConfig(withAppID: "YOUR APP ID")
+     MoEngageInitializer.shared.initializeDefaultInstance(sdkConfig: sdkConfig)
+     MoEngage.sharedInstance.enableSDK()
+
      let sdkConfig = MOSDKConfig(appID: "YOUR APP ID")
      SEGMoEngageInitializer.initializeDefaultInstance(sdkConfig)
      
      // Add your configuration key from Segment
-     let config = SEGAnalyticsConfiguration(writeKey:"configuration key")
-  
-     // Add MoEngageIntegrationFactory. Without this data will not come to MoEngage.
-     config.use(SEGMoEngageIntegrationFactory.instance())
-     SEGAnalytics.setup(with: config)
+     let analytics = Analytics(configuration: Configuration(writeKey: "<YOUR WRITE KEY>")
+                    .flushAt(3)
+                    .trackApplicationLifecycleEvents(true))
+     // Add Moengage Destination Plugin to send data from Segment to MoEngage
+     analytics.add(plugin: MoEngageDestination())
  ...
  }
  ```
@@ -146,10 +129,6 @@ Push Notifications are a great way to keep your users engaged and informed about
 3.If you integrated the application:didReceiveRemoteNotification:fetchCompletionHandler: in your app, add the following to that method:
  
  ```Analytics.main.receivedRemoteNotification(userInfo: userInfo)```
-
-4.If you implemented handleActionWithIdentifier:forRemoteNotification:, add the following to that method:
-
- ```[[SEGAnalytics sharedAnalytics] handleActionWithIdentifier:identifier forRemoteNotification:userInfo];```
  
 #### MoEngage Push Implementation:
  Follow this link to implement Push Notification in your mobile app using MoEngage SDK : 
