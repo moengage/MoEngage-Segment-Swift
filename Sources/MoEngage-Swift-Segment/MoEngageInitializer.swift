@@ -44,12 +44,12 @@ public class MoEngageInitializer: NSObject {
         trackPluginTypeAndVersion(sdkConfig: sdkConfig)
     }
     
-    @objc func updateSDKConfig(sdkConfig: MoEngageSDKConfig) {
+    func updateSDKConfig(sdkConfig: MoEngageSDKConfig) {
         sdkConfig.setPartnerIntegrationType(integrationType: MoEngagePartnerIntegrationType.segment)
         config = sdkConfig
     }
     
-    @objc func trackPluginTypeAndVersion(sdkConfig: MoEngageSDKConfig) {
+    func trackPluginTypeAndVersion(sdkConfig: MoEngageSDKConfig) {
         let integrationInfo = MoEngageIntegrationInfo(pluginType: "segment", version: segmentVersion)
         MoEngageCoreIntegrator.sharedInstance.addIntergrationInfo(info: integrationInfo, appId: sdkConfig.moeAppID)
     }

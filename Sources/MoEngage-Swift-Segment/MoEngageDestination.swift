@@ -23,6 +23,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
         moengageSettings = tempSettings
         
         guard let appID = moengageSettings?.apiKey, let moeAppID = MoEngageInitializer.shared.config?.moeAppID, appID == moeAppID else {
+            MoEngageLogger.debug("App ID mismatch")
             return
         }
         
@@ -97,7 +98,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
             
             if let location = traits[UserAttributes.location.rawValue] as? [String: Any] {
                 if let latitute = location["latitude"] as? Double, let longitude = location["longitude"] as? Double {
-                    MoEngageSDKAnalytics.sharedInstance.setLocation(MoEngageGeoLocation(withLatitude: latitute, andLongitude: longitude))
+                    MoEngageSDKAnalytics.sharedInstance.setLocation(MoEngageGeoLocation(withLatitude: latitute, andLongitude: longitude), forAppID: moengageSettings?.apiKey)
                 }
             }
             
@@ -123,8 +124,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
             for key in generalAttributeDict.keys {
                 let val = generalAttributeDict[key]
                 if val is String {
-                    let converted_date = date(fromISOdateStr: val as? String)
-                    if let converted_date {
+                    if let converted_date = date(fromISOdateStr: val as? String) {
                         dateAttributeDict[key] = converted_date
                         generalAttributeDict.removeValue(forKey: key)
                     }
