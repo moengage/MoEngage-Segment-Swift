@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         // Set Unique Id for Segment
-        Analytics.main.identify(userId: "MoE_UniqueID")
+        Analytics.main.identify(userId: "Deepa")
     }
 
     func getFormattedDate() -> String? {
@@ -65,11 +65,14 @@ extension ViewController: UITableViewDelegate {
         case .setEmail:
             let emailTrait = ["email": "moe@test.com"]
             Analytics.main.identify(traits: emailTrait)
+        case .setBirthdate:
+            let birthdayTrait = ["birthday": Date()]
+            Analytics.main.identify(traits: birthdayTrait)
         case .setisoBirthDay:
-            let isoBirthdayTrait = ["birthday": "1980-06-07T01:21:13Z"]
+            let isoBirthdayTrait = ["isoBirthday": getFormattedDate()]
             Analytics.main.identify(traits: isoBirthdayTrait)
         case .setisoDate:
-            let isoDateTrait = ["isoDate": Date()]
+            let isoDateTrait = ["isoDate": getFormattedDate()]
             Analytics.main.identify(traits: isoDateTrait)
         case .setLocation:
             let locationTrait = ["location": ["latitude":74.0, "longitude": 78.0]]
@@ -82,7 +85,7 @@ extension ViewController: UITableViewDelegate {
             events["artist"] = "David Garrett"
             events["testDate"] = getFormattedDate()
             events["testDate2"] = getFormattedDate()
-            Analytics.main.track(name: "Test123", properties: events)
+            Analytics.main.track(name: "Test_123", properties: events)
         case .flush:
             Analytics.main.flush()
         case .resetUser:
@@ -99,6 +102,7 @@ enum Rows: String, CaseIterable {
     case setLastName = "Set LastName"
     case setFirstName = "Set FirstName"
     case setEmail = "Set Email"
+    case setBirthdate = "Set Birthday"
     case setisoBirthDay = "Set ISO birthday"
     case setisoDate = "Set ISO date"
     case setLocation = "Set Location"

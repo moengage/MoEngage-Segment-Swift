@@ -12,11 +12,9 @@ import MoEngageSDK
 @objc
 public class MoEngageInitializer: NSObject {
     
-    @objc public static let shared = MoEngageInitializer()
     @objc public var config: MoEngageSDKConfig?
     
-    private let segmentVersion = "8.0.0"
-    private override init() {
+    public override init() {
         
     }
     
@@ -50,7 +48,7 @@ public class MoEngageInitializer: NSObject {
     }
     
     func trackPluginTypeAndVersion(sdkConfig: MoEngageSDKConfig) {
-        let integrationInfo = MoEngageIntegrationInfo(pluginType: "segment", version: segmentVersion)
+        let integrationInfo = MoEngageIntegrationInfo(pluginType: MoEngageSegmentConstant.segment, version: MoEngageSegmentConstant.segmentVersion)
         MoEngageCoreIntegrator.sharedInstance.addIntergrationInfo(info: integrationInfo, appId: sdkConfig.moeAppID)
     }
 }
