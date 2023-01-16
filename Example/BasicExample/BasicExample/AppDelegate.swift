@@ -16,12 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         UNUserNotificationCenter.current().delegate = self
-        let sdkConfig = MoEngageSDKConfig(withAppID: "DAO6UGZ73D9RTK8B5W96TPYN")
+        let sdkConfig = MoEngageSDKConfig(withAppID: "YOUR APP ID")
         sdkConfig.moeDataCenter = MoEngageDataCenter.data_center_01
-        sdkConfig.appGroupID = "group.com.alphadevs.MoEngage.NotificationServices"
+        sdkConfig.appGroupID = "YOUR APP GROUP ID"
         sdkConfig.enableLogs = true
-        MoEngageInitializer().initializeDefaultInstance(sdkConfig: sdkConfig)
-        MoEngage.sharedInstance.enableSDK()
+        MoEngageInitializer.initializeDefaultInstance(sdkConfig: sdkConfig)
         
         MoEngageSDKMessaging.sharedInstance.registerForRemoteNotification(withCategories: nil, andUserNotificationCenterDelegate: self)
         
@@ -41,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 extension Analytics {
     static var main: Analytics {
-        let analytics = Analytics(configuration: Configuration(writeKey: "BhSSvUnwtbqphjMsuPTGCZIsDbZpHjOt")
+        let analytics = Analytics(configuration: Configuration(writeKey: "Your Write Key")
                             .flushAt(3)
                             .trackApplicationLifecycleEvents(true))
         analytics.add(plugin: MoEngageDestination())

@@ -49,14 +49,14 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
             if let birthday = traits[UserAttributes.birthday.rawValue] as? NSNumber {
                 let timeInterval = TimeInterval(birthday.doubleValue)
                 let formattedBirthday = Date(timeIntervalSinceReferenceDate: timeInterval)
-                MoEngageSDKAnalytics.sharedInstance.setDateOfBirth(formattedBirthday, forAppID: moengageSettings?.apiKey)
+                MoEngageSDKAnalytics.sharedInstance.setDateOfBirth(formattedBirthday, forAppID: apiKey)
             }
             
             if let name = traits[UserAttributes.name.rawValue] as? String {
                 MoEngageSDKAnalytics.sharedInstance.setName(name, forAppID: apiKey)
             }
             if let birthday = traits[UserAttributes.isoBirthday.rawValue] as? String {
-                MoEngageSDKAnalytics.sharedInstance.setDateOfBirthInISO(birthday, forAppID: moengageSettings?.apiKey)
+                MoEngageSDKAnalytics.sharedInstance.setDateOfBirthInISO(birthday, forAppID: apiKey)
             }
             
             if let email = traits[UserAttributes.email.rawValue] as? String {
@@ -120,7 +120,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
         if var generalAttributeDict = event.properties?.dictionaryValue {
             var dateAttributeDict: [String : Date] = [:]
             
-            var keys = generalAttributeDict.keys
+            let keys = generalAttributeDict.keys
             for key in keys {
                 let val = generalAttributeDict[key]
                 if val is String {

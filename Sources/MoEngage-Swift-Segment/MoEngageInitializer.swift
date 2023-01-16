@@ -10,17 +10,15 @@ import MoEngageSDK
 
 /// This class is used for initializing the MoEngageSDK
 @objc
-public class MoEngageInitializer: NSObject {
-    
-    @objc public var config: MoEngageSDKConfig?
-    
+public final class MoEngageInitializer: NSObject {
+        
     public override init() {
         
     }
     
     /// Method to initialize the default instance of MoEngageSDK
     /// - Parameter sdkConfig: MoEngageSDKConfig
-    @objc public func initializeDefaultInstance(sdkConfig: MoEngageSDKConfig) {
+    @objc public static func initializeDefaultInstance(sdkConfig: MoEngageSDKConfig) {
         updateSDKConfig(sdkConfig: sdkConfig)
 #if DEBUG
         MoEngage.sharedInstance.initializeDefaultTestInstance(sdkConfig)
@@ -32,7 +30,7 @@ public class MoEngageInitializer: NSObject {
     
     /// Method to initialize the other instance of MoEngageSDK
     /// - Parameter sdkConfig: MoEngageSDKConfig
-    @objc public func initializeInstance(sdkConfig: MoEngageSDKConfig) {
+    @objc public static func initializeInstance(sdkConfig: MoEngageSDKConfig) {
         updateSDKConfig(sdkConfig: sdkConfig)
 #if DEBUG
         MoEngage.sharedInstance.initializeTestInstance(sdkConfig)
@@ -42,12 +40,11 @@ public class MoEngageInitializer: NSObject {
         trackPluginTypeAndVersion(sdkConfig: sdkConfig)
     }
     
-    func updateSDKConfig(sdkConfig: MoEngageSDKConfig) {
+    private static func updateSDKConfig(sdkConfig: MoEngageSDKConfig) {
         sdkConfig.setPartnerIntegrationType(integrationType: MoEngagePartnerIntegrationType.segment)
-        config = sdkConfig
     }
     
-    func trackPluginTypeAndVersion(sdkConfig: MoEngageSDKConfig) {
+    private static func trackPluginTypeAndVersion(sdkConfig: MoEngageSDKConfig) {
         let integrationInfo = MoEngageIntegrationInfo(pluginType: MoEngageSegmentConstant.segment, version: MoEngageSegmentConstant.segmentVersion)
         MoEngageCoreIntegrator.sharedInstance.addIntergrationInfo(info: integrationInfo, appId: sdkConfig.moeAppID)
     }
