@@ -12,7 +12,7 @@ import MoEngageSDK
 @objc
 public final class MoEngageInitializer: NSObject {
         
-    public override init() {
+    override init() {
         
     }
     
