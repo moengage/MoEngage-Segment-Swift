@@ -46,6 +46,6 @@ public final class MoEngageInitializer: NSObject {
     
     private static func trackPluginTypeAndVersion(sdkConfig: MoEngageSDKConfig) {
         let integrationInfo = MoEngageIntegrationInfo(pluginType: MoEngageSegmentConstant.segment, version: MoEngageSegmentConstant.segmentVersion)
-        MoEngageCoreIntegrator.sharedInstance.addIntergrationInfo(info: integrationInfo, appId: sdkConfig.moeAppID)
+        MoEngageCoreIntegrator.sharedInstance.addIntergrationInfo(info: integrationInfo, appId: sdkConfig.appId)
     }
 }

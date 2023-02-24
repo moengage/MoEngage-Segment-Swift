@@ -16,7 +16,6 @@
 		14D9EC8B2959A51B001AE669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D9EC8A2959A51B001AE669 /* Assets.xcassets */; };
 		14D9EC8E2959A51B001AE669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D9EC8C2959A51B001AE669 /* LaunchScreen.storyboard */; };
 		14D9EC982959A56A001AE669 /* Segment in Frameworks */ = {isa = PBXBuildFile; productRef = 14D9EC972959A56A001AE669 /* Segment */; };
-		14D9EC9B2959A989001AE669 /* MoEngage-iOS-SDK in Frameworks */ = {isa = PBXBuildFile; productRef = 14D9EC9A2959A989001AE669 /* MoEngage-iOS-SDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +39,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				144F5BA529668C6400026A7B /* Segment-MoEngage in Frameworks */,
-				14D9EC9B2959A989001AE669 /* MoEngage-iOS-SDK in Frameworks */,
 				14D9EC982959A56A001AE669 /* Segment in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,7 +114,6 @@
 			name = BasicExample;
 			packageProductDependencies = (
 				14D9EC972959A56A001AE669 /* Segment */,
-				14D9EC9A2959A989001AE669 /* MoEngage-iOS-SDK */,
 				144F5BA429668C6400026A7B /* Segment-MoEngage */,
 			);
 			productName = BasicExample;
@@ -149,7 +146,6 @@
 			mainGroup = 14D9EC752959A518001AE669;
 			packageReferences = (
 				14D9EC962959A56A001AE669 /* XCRemoteSwiftPackageReference "analytics-swift" */,
-				14D9EC992959A989001AE669 /* XCRemoteSwiftPackageReference "MoEngage-iOS-SDK" */,
 			);
 			productRefGroup = 14D9EC7F2959A518001AE669 /* Products */;
 			projectDirPath = "";
@@ -413,14 +409,6 @@
 				kind = branch;
 			};
 		};
-		14D9EC992959A989001AE669 /* XCRemoteSwiftPackageReference "MoEngage-iOS-SDK" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/moengage/MoEngage-iOS-SDK.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -432,11 +420,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14D9EC962959A56A001AE669 /* XCRemoteSwiftPackageReference "analytics-swift" */;
 			productName = Segment;
-		};
-		14D9EC9A2959A989001AE669 /* MoEngage-iOS-SDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 14D9EC992959A989001AE669 /* XCRemoteSwiftPackageReference "MoEngage-iOS-SDK" */;
-			productName = "MoEngage-iOS-SDK";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
