@@ -1,20 +1,9 @@
-![Logo](https://github.com/moengage/MoEngage-Segment-Swift/blob/master/Images/moe_logo_blue.png)
 # MoEngage-Segment-Swift
-
-[![Version](https://img.shields.io/cocoapods/v/Segment-MoEngage.svg?style=flat)](http://cocoapods.org/pods/Segment-MoEngage)
-[![License](https://img.shields.io/cocoapods/l/Segment-MoEngage.svg?style=flat)](http://cocoapods.org/pods/Segment-MoEngage)
-
 
 MoEngage integration for analytics-swift.
 
 ## Installation:
 
-MoEngage can be integrated via Segment using SPM. 
-  * Add Segment Package from github URL [Analytics-Swift](https://github.com/segmentio/analytics-swift)
-
- ## Adding the dependency
-
-### via Xcode
 In the Xcode `File` menu, click `Add Packages`.  You'll see a dialog where you can search for Swift packages.  In the search field, enter the URL to this [repo](https://github.com/moengage/MoEngage-Segment-Swift.git).
 
 ## Setup Segment SDK:
@@ -44,7 +33,6 @@ analytics.add(plugin: MoEngageDestination())
  
      let sdkConfig = MoEngageSDKConfig(withAppID: "YOUR APP ID")
      MoEngageInitializer.shared.initializeDefaultInstance(sdkConfig: sdkConfig)
-     MoEngage.sharedInstance.enableSDK()
      
      // Add your configuration key from Segment
      let analytics = Analytics(configuration: Configuration(writeKey: "<YOUR WRITE KEY>")
