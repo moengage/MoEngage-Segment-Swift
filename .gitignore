@@ -18,6 +18,9 @@ profile
 DerivedData
 *.hmap
 *.ipa
+.build
+.swiftpm
+Package.resolved
 
 # Bundler
 .bundle

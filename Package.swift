@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/segmentio/analytics-swift.git", from: "1.3.1"),
-        .package(url: "https://github.com/moengage/MoEngage-iOS-SDK.git", from: "9.5.0")
+        .package(url: "https://github.com/moengage/MoEngage-iOS-SDK.git", "9.16.0"..<"9.17.0")
     ],
     targets: [
         .target(
