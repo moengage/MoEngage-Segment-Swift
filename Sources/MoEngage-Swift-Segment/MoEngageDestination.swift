@@ -21,7 +21,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
         moengageSettings = tempSettings
         
         guard let appID = moengageSettings?.apiKey else {
-            MoEngageLogger.debug("App ID not present")
+            MoEngageLogger.logDefault(message: "App ID not present")
             return
         }
         
