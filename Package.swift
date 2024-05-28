@@ -23,5 +23,6 @@ let package = Package(
             name: "Segment-MoEngage",
             dependencies: [.product(name: "Segment", package: "analytics-swift"), .product(name: "MoEngage-iOS-SDK", package: "MoEngage-iOS-SDK")],
             path: "Sources/MoEngage-Swift-Segment"),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
