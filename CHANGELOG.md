@@ -4,6 +4,7 @@ Change Log
 Next Release
 -------------------------------------------
 * Added manual integration support.
+* Updated `MoEngage-iOS-SDK` to `9.19.0`.
 
 Version 1.3.0 *(31-07-2024)*
 -------------------------------------------
