@@ -9,7 +9,6 @@ import Foundation
 
 enum MoEngageSegmentConstant {
     static let segment = "segment"
-    static let segmentVersion = "1.2.0"
 }
 
 enum MoEngageDestinationConstant {

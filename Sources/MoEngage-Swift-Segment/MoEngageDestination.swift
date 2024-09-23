@@ -25,7 +25,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
             return
         }
         
-        MoEngageCoreIntegrator.sharedInstance.enableSDKForSegment(instanceID: appID)
+        MoEngageCoreIntegrator.sharedInstance.enableSDKForPartner(workspaceId: appID, integrationType: .segment)
         
         DispatchQueue.main.async {
             if let segmentAnonymousID = self.analytics?.anonymousId {
