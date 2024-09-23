@@ -1,3 +1,13 @@
+#!/usr/bin/ruby
+
+# Usage:
+# Update Package.swift, version constants as per package.json
+
+require 'json'
+
+config = JSON.parse(File.read('package.json'), {object_class: OpenStruct})
+
+package_swift = <<PACKAGE
 // swift-tools-version:5.3
 // This file generated from post_build script, modify the script instaed of this file.
 
@@ -16,8 +26,8 @@ let package = Package(
         .library(name: "Segment-MoEngage", targets: ["Segment-MoEngage"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/segmentio/analytics-swift.git", from: "1.3.1"),
-        .package(url: "https://github.com/moengage/MoEngage-iOS-SDK.git", "9.19.0"..<"9.20.0")
+        .package(url: "https://github.com/segmentio/analytics-swift.git", from: "#{config.segmentVersion}"),
+        .package(url: "https://github.com/moengage/MoEngage-iOS-SDK.git", "#{config.sdkVerMin}"..<"#{config.sdkVerMax}")
     ],
     targets: [
         .target(
@@ -30,3 +40,21 @@ let package = Package(
     ],
     swiftLanguageVersions: [.v5]
 )
+PACKAGE
+
+version_constant = <<CONSTANTS
+// This file generated from post_build script, modify the script instaed of this file.
+import Foundation
+
+extension MoEngageSegmentConstant {
+    static let segmentVersion = "#{config.packages[0].version}"
+}
+CONSTANTS
+
+File.open('Package.swift', 'w') do |file|
+  file.write(package_swift)
+end
+
+File.open('Sources/MoEngage-Swift-Segment/MoEngageSegmentConstants+Version.swift', 'w') do |file|
+  file.write(version_constant)
+end
