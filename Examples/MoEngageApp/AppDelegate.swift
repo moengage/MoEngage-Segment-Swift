@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let sdkConfig = MoEngageSDKConfig(withAppID: "YOUR APP ID")
         sdkConfig.moeDataCenter = MoEngageDataCenter.data_center_01
         sdkConfig.appGroupID = "YOUR APP GROUP ID"
-        sdkConfig.enableLogs = true
+//        sdkConfig.enableLogs = true
         MoEngageInitializer.initializeDefaultInstance(sdkConfig: sdkConfig)
         
         MoEngageSDKMessaging.sharedInstance.registerForRemoteNotification(withCategories: nil, andUserNotificationCenterDelegate: self)

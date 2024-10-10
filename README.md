@@ -2,29 +2,46 @@
 
 MoEngage integration for analytics-swift.
 
-## Installation:
+## Installation
+
+### Swift Package Manager
 
 In the Xcode `File` menu, click `Add Packages`.  You'll see a dialog where you can search for Swift packages.  In the search field, enter the URL to this [repo](https://github.com/moengage/MoEngage-Segment-Swift.git).
 
-## Setup Segment SDK:
+### Manual Integration
+
+1. Get `MoEngage-Segment-Swift` xcframework(s) from [releases](https://github.com/moengage/MoEngage-Segment-Swift/releases). Use this version for checking dependencies in [`Package.swift](Package.swift).
+
+1. Get MoEngage SDK XCFrameworks:
+  a. Get supported MoEngage SDK version range from [`Package.swift](Package.swift).
+  a. Get XCFrameworks for `MoEngageSecurity`, `MoEngageCore`, `MoEngageObjCUtils`, `MoEngageAnalytics`, `MoEngageMessaging` and `MoEngageSDK` from URLs present in [`package.json`](https://github.com/moengage/MoEngage-iOS-SDK/blob/master/package.json) for supported version.
+
+1. Get Segment XCFrameworks:
+  a. Get supported Segment SDK version range from [`Package.swift](Package.swift).
+  a. Get XCFrameworks for for supported version from [Segment releases](https://github.com/segmentio/analytics-swift/releases).
+
+1. Add all the XCFrameworks to `Frameworks, Libraries, and Embedded Content` section for the app target.
+
+## Setup Segment SDK
 
 Now head to the App Delegate file, and setup the Segment SDK by
+
 1. Importing `Segment`, `Segment_MoEngage` and `MoEngageSDK`.
 2. Initialize `MoEngageSDKConfig` object and call `initializeDefaultInstance` method of `MoEngageInitializer`.
 3. Initialize `MoEngageDestination` as shown below:
 
 Under your Analytics-Swift library setup, add the MoEngage plugin using `analytics.add(plugin: ...)` method. Now all your events will be tracked in MoEngage dashboard.
 
-```
+```swift
 let analytics = Analytics(configuration: Configuration(writeKey: "<YOUR WRITE KEY>")
                     .flushAt(3)
                     .trackApplicationLifecycleEvents(true))
 analytics.add(plugin: MoEngageDestination())
 ```
 
-### Swift:
+### Swift
 
- ```
+ ```swift
  import Segment_MoEngage
  import MoEngageSDK
  ...
@@ -44,11 +61,12 @@ analytics.add(plugin: MoEngageDestination())
  }
  ```
 
-## Setup MoEngage in Segment Dashboard:
+## Setup MoEngage in Segment Dashboard
 
-To setup MoEngage do the following : 
+To setup MoEngage do the following:
+
   1. First get your key from MoEngage dashboard. (Dashboard -> Settings -> General -> General Settings -> AppID)
-  2. Go to **Segment dashboard**, go to **Integrations** and select **MoEngage**. 
+  2. Go to **Segment dashboard**, go to **Integrations** and select **MoEngage**.
   3. Enable MoEngage Integration.
   4. Go to MoEngage Settings and enter the MoEngage AppID, obtained in **Step1**.
   5. Save the changes.
@@ -81,12 +99,12 @@ The *reset* method clears the SDK’s internal stores for the current user. This
 
 For more info refer to this [link](https://segment.com/docs/sources/mobile/ios/#reset).
 
-## Install / Update Differentiation 
+## Install / Update Differentiation
 
 Since you might integrate us when your app is already on the App Store, we would need to know whether your app update would be an actual UPDATE or an INSTALL.
 To differentiate between those, use one of the method below:
 
- ```
+ ```swift
  //For new Install call following
  MoEngageSDKAnalytics.sharedInstance.appStatus(.install);
 
@@ -100,36 +118,44 @@ For more info on this refer following [link](https://developers.moengage.com/hc/
 
 Along with tracking your user's activities, MoEngage iOS SDK also provides additional features which can be used for more effective user engagement:
 
-### Push Notifications:
+### Push Notifications
+
 Push Notifications are a great way to keep your users engaged and informed about your app. You have following options while implementing push notifications in your app:
 
-#### Segment Push Implementation:
+#### Segment Push Implementation
 
 1.Follow the directions to register for push using Segment SDK in this [link](https://segment.com/docs/libraries/ios/#how-do-i-use-push-notifications-).
 
 2.In your application’s application:didReceiveRemoteNotification: method, add the following:
 
- ```Analytics.main.receivedRemoteNotification(userInfo: userInfo)```
+```swift
+Analytics.main.receivedRemoteNotification(userInfo: userInfo)
+```
 
 3.If you integrated the application:didReceiveRemoteNotification:fetchCompletionHandler: in your app, add the following to that method:
- 
- ```Analytics.main.receivedRemoteNotification(userInfo: userInfo)```
- 
-#### MoEngage Push Implementation:
- Follow this link to implement Push Notification in your mobile app using MoEngage SDK : 
+
+```swift
+Analytics.main.receivedRemoteNotification(userInfo: userInfo)
+```
+
+#### MoEngage Push Implementation
+
+ Follow this link to implement Push Notification in your mobile app using MoEngage SDK:
  [**Push Notifications**](https://developers.moengage.com/hc/en-us/articles/4403943988756)
 
+### In-App Messaging
 
-### In-App Messaging:
-
-In-App Messaging are custom views which you can send to a segment of users to show custom messages or give new offers or take to some specific pages. Follow the link to know more about  inApp Messaging and how to implement it in your application: 
+In-App Messaging are custom views which you can send to a segment of users to show custom messages or give new offers or take to some specific pages. Follow the link to know more about  inApp Messaging and how to implement it in your application:
 [**InApp NATIV**](https://developers.moengage.com/hc/en-us/articles/4404155127828-In-App-Nativ)
 
-## Segment Docs:
+## Segment Docs
+
 For more info on using **Segment for iOS** refer to [**Developer Docs**](https://segment.com/docs/sources/mobile/ios/) provided by Segment.
   
 ## Change Log
+
 See [SDK Change Log](https://github.com/moengage/MoEngage-Segment-iOS/blob/master/CHANGELOG.md) for information on every released version.
 
 ## Support
+
 For any issues you face with the SDK and for any help with the integration contact us at `support@moengage.com`.

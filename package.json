@@ -1,5 +1,17 @@
 {
   "name": "Segment-MoEngage",
+  "xcframework": {
+    "pre": "rake setup",
+    "workspace": "Examples/MoEngageSegment.xcworkspace",
+    "destinations": [
+      {
+        "platform": "iOS"
+      },
+      {
+        "platform": "iOS Simulator"
+      }
+    ]
+  },
   "packages": [
     {
       "name": "Segment-MoEngage",
