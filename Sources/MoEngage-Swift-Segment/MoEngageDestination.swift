@@ -40,11 +40,15 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
     
     public func identify(event: IdentifyEvent) -> IdentifyEvent? {
         guard let apiKey = moengageSettings?.apiKey else { return nil }
-        
+
         if let userId = event.userId, !userId.isEmpty {
             MoEngageSDKAnalytics.sharedInstance.setUniqueID(userId, forAppID: apiKey)
         }
-        
+
+        if let segmentAnonymousID = self.analytics?.anonymousId {
+            MoEngageSDKAnalytics.sharedInstance.setUserAttribute(segmentAnonymousID, withAttributeName: MoEngageDestinationConstant.segmentAnonymousIDAttribute, forAppID: apiKey)
+        }
+
         if let traits = event.traits?.dictionaryValue {
             if let birthday = traits[UserAttributes.birthday.rawValue] as? NSNumber {
                 let timeInterval = TimeInterval(birthday.doubleValue)
@@ -166,7 +170,11 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
     
     public func reset() {
         if let apiKey = moengageSettings?.apiKey {
-            MoEngageSDKAnalytics.sharedInstance.resetUser(forAppID: apiKey)
+            MoEngageSDKAnalytics.sharedInstance.resetUser(forAppID: apiKey) { [weak self] _ in
+                if let segmentAnonymousID = self?.analytics?.anonymousId {
+                    MoEngageSDKAnalytics.sharedInstance.setUserAttribute(segmentAnonymousID, withAttributeName: MoEngageDestinationConstant.segmentAnonymousIDAttribute, forAppID: apiKey)
+                }
+            }
         }
     }
 }
