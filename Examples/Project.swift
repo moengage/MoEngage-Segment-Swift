@@ -27,7 +27,10 @@ let project = Project(
             headers: .headers(public: "MoEngageApp/**/*.h"),
             entitlements: "MoEngageApp/MoEngageApp.entitlements",
             dependencies: [
-                .external(name: "Segment-MoEngage"), 
+                .external(name: "Segment-MoEngage"),
+                .external(name: "MoEngageRichNotification"),
+                .target(name: "NotificationService", condition: nil),
+                .target(name: "NotificationContent", condition: nil),
             ],
             settings: .settings(
                 base: defaultSettings
@@ -71,6 +74,47 @@ let project = Project(
             ],
             headers: .headers(public: "MoEngageApp/**/*.h"),
             entitlements: "MoEngageApp/MoEngageApp.entitlements",
+            settings: .settings(
+                base: defaultSettings
+                    .marketingVersion("1.0.0")
+                    .currentProjectVersion("1.0.0")
+            )
+        ),
+
+        // Extensions
+        .target(
+            name: "NotificationService",
+            destinations: .iOS,
+            product: .appExtension,
+            bundleId: "com.alphadevs.MoEngage.NotificationService",
+            deploymentTargets: .iOS("13.0"),
+            infoPlist: "NotificationService/Info.plist",
+            sources: ["NotificationService/**/*.{swift,h,m}"],
+            entitlements: "NotificationService/NotificationService.entitlements",
+            dependencies: [
+                .external(name: "MoEngage-iOS-SDK"),
+                .external(name: "MoEngageRichNotification"),
+            ],
+            settings: .settings(
+                base: defaultSettings
+                    .marketingVersion("1.0.0")
+                    .currentProjectVersion("1.0.0")
+            )
+        ),
+        .target(
+            name: "NotificationContent",
+            destinations: .iOS,
+            product: .appExtension,
+            bundleId: "com.alphadevs.MoEngage.NotificationContent",
+            deploymentTargets: .iOS("13.0"),
+            infoPlist: "NotificationContent/Info.plist",
+            sources: ["NotificationContent/**/*.{swift,h,m}"],
+            resources: ["NotificationContent/**/*.{xib,storyboard,xcassets}"],
+            entitlements: "NotificationContent/NotificationContent.entitlements",
+            dependencies: [
+                .external(name: "MoEngage-iOS-SDK"),
+                .external(name: "MoEngageRichNotification"),
+            ],
             settings: .settings(
                 base: defaultSettings
                     .marketingVersion("1.0.0")

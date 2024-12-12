@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().delegate = self
         let sdkConfig = MoEngageSDKConfig(withAppID: "YOUR APP ID")
         sdkConfig.moeDataCenter = MoEngageDataCenter.data_center_01
-        sdkConfig.appGroupID = "YOUR APP GROUP ID"
+        sdkConfig.appGroupID = "group.com.alphadevs.MoEngage.NotificationServices"
         sdkConfig.consoleLogConfig = .init(isLoggingEnabled: true, loglevel: .verbose)
         MoEngageInitializer.initializeDefaultInstance(sdkConfig: sdkConfig)
         
