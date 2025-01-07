@@ -37,6 +37,7 @@ let package = Package(
                 .product(name: "MoEngage-iOS-SDK", package: "MoEngage-iOS-SDK")
             ],
             path: "Sources/MoEngage-Swift-Segment"),
+        .testTarget(name: "Segment-MoEngageTests", dependencies: ["Segment-MoEngage"]),
     ],
     swiftLanguageVersions: [.v5]
 )
