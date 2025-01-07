@@ -1,6 +1,7 @@
 require 'fileutils'
 require 'optparse'
 require 'json'
+require 'ostruct'
 
 config = JSON.parse(File.read('package.json'), {object_class: OpenStruct})
 
@@ -48,4 +49,12 @@ task :xcframework => [PROJECT, config.xcframework.workspace] do |t, args|
   http.use_ssl = true
   res = http.request(req)
   eval(res.body)
+end
+
+desc <<~DESC
+  Run tests
+DESC
+task :test do |t, args|
+  require_relative 'Utilities/test'
+  run_tests
 end
