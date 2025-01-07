@@ -37,5 +37,9 @@ jobs:
       with:
         dir: source
       env:
-        GH_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
         MO_CERTIFICATE_IDENTITY: ${{ secrets.MO_CERTIFICATE_IDENTITY }}
+
+    - name: Delete keychain
+      if: always()
+      uses: ./scripts/actions/ios-keychain-delete
