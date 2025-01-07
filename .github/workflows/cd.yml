@@ -29,3 +29,5 @@ jobs:
       uses: ./scripts/actions/ios-sdk-client-release
       with:
         dir: source
+      env:
+        GH_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
