@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+Version 1.5.0 *(Next Release Date)*
+-------------------------------------------
+* Updated `MoEngage-iOS-SDK` to `9.22.1`.
+
 Version 1.4.0 *(07-01-2025)*
 -------------------------------------------
 * Added manual integration support.
