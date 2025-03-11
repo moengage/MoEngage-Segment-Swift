@@ -17,14 +17,14 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/segmentio/analytics-swift.git", from: "1.3.1"),
-        .package(url: "https://github.com/moengage/MoEngage-iOS-SDK.git", "9.21.0"..<"9.22.0")
+        .package(url: "https://github.com/moengage/apple-sdk.git", "9.23.0"..<"9.24.0")
     ],
     targets: [
         .target(
             name: "Segment-MoEngage",
             dependencies: [
                 .product(name: "Segment", package: "analytics-swift"),
-                .product(name: "MoEngage-iOS-SDK", package: "MoEngage-iOS-SDK")
+                .product(name: "MoEngage-iOS-SDK", package: "apple-sdk")
             ],
             path: "Sources/MoEngage-Swift-Segment"),
         .testTarget(name: "Segment-MoEngageTests", dependencies: ["Segment-MoEngage"]),
