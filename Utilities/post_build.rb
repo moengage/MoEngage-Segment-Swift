@@ -34,7 +34,7 @@ let package = Package(
             name: "Segment-MoEngage",
             dependencies: [
                 .product(name: "Segment", package: "analytics-swift"),
-                .product(name: "MoEngage-iOS-SDK", package: "MoEngage-iOS-SDK")
+                .product(name: "MoEngage-iOS-SDK", package: "apple-sdk")
             ],
             path: "Sources/MoEngage-Swift-Segment"),
         .testTarget(name: "Segment-MoEngageTests", dependencies: ["Segment-MoEngage"]),
