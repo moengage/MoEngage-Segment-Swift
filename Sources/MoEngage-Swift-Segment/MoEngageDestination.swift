@@ -2,7 +2,7 @@ import Segment
 import MoEngageSDK
 import UIKit
 
-@objc
+@objc(MoEngageDestination)
 public class MoEngageDestination: UIResponder, DestinationPlugin {
     public let timeline = Timeline()
     public let type = PluginType.destination
