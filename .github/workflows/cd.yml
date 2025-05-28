@@ -44,6 +44,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
         MO_CERTIFICATE_IDENTITY: ${{ secrets.MO_CERTIFICATE_IDENTITY }}
+        MOENGAGE_KMM_FREE: true
 
     - name: Delete keychain
       if: always()

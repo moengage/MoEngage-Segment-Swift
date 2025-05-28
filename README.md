@@ -13,8 +13,8 @@ In the Xcode `File` menu, click `Add Packages`.  You'll see a dialog where you c
 1. Get `MoEngage-Segment-Swift` xcframework(s) from [releases](https://github.com/moengage/MoEngage-Segment-Swift/releases). Use this version for checking dependencies in [`Package.swift](Package.swift).
 
 1. Get MoEngage SDK XCFrameworks:
-  a. Get supported MoEngage SDK version range from [`Package.swift](Package.swift).
-  a. Get XCFrameworks for `MoEngageSecurity`, `MoEngageCore`, `MoEngageObjCUtils`, `MoEngageAnalytics`, `MoEngageMessaging` and `MoEngageSDK` from URLs present in [`package.json`](https://github.com/moengage/MoEngage-iOS-SDK/blob/master/package.json) for supported version.
+  a. Get supported MoEngage SDK version range from [`Package.swift`](Package.swift).
+  a. Get XCFrameworks for `MoEngageSecurity`, `MoEngageCore`, `MoEngageObjCUtils`, `MoEngageAnalytics`, `MoEngageMessaging` and `MoEngageSDK` from URLs present in [`package.json`](https://github.com/moengage/apple-sdk/blob/master/package.json) for supported version.
 
 1. Get Segment XCFrameworks:
   a. Get supported Segment SDK version range from [`Package.swift](Package.swift).

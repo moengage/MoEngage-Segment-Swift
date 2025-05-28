@@ -10,6 +10,7 @@ let packageSettings = PackageSettings(
     // productTypes: ["Alamofire": .framework,]
     productTypes: [
         "Segment-MoEngage": .framework,
+        "Segment-Swift-MoEngage": .framework,
         "Segment": .framework,
         "Sovran": .framework,
         "JSONSafeEncoding": .framework,
