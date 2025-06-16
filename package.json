@@ -14,8 +14,8 @@
   },
   "postBuild": "Utilities/post_build.rb",
   "segmentVersion": "1.3.1",
-  "sdkVerMin": "10.00.0",
-  "sdkVerMax": "10.01.0",
+  "sdkVerMin": "10.01.0",
+  "sdkVerMax": "10.02.0",
   "packages": [
     {
       "name": "Segment-MoEngage",
