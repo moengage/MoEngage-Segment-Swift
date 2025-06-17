@@ -17,10 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         UNUserNotificationCenter.current().delegate = self
         MoEngageSDKCore.sharedInstance.enableAllLogs()
-        let sdkConfig = MoEngageSDKConfig(appId: "YOUR APP ID", dataCenter: .data_center_01)
-        sdkConfig.appGroupID = "group.com.alphadevs.MoEngage.NotificationServices"
-        sdkConfig.consoleLogConfig = .init(isLoggingEnabled: true, loglevel: .verbose)
-        MoEngageInitializer.initializeDefaultInstance(sdkConfig: sdkConfig)
+        MoEngageInitializer.initializeDefaultInstance()
+
+        // Code based initialization
+        // let sdkConfig = MoEngageSDKConfig(appId: "YOUR APP ID", dataCenter: .data_center_01)
+        // sdkConfig.appGroupID = "group.com.alphadevs.MoEngage.NotificationServices"
+        // sdkConfig.consoleLogConfig = .init(isLoggingEnabled: true, loglevel: .verbose)
+        // MoEngageInitializer.initializeDefaultInstance(sdkConfig: sdkConfig)
 
         MoEngageSDKMessaging.sharedInstance.registerForRemoteNotification(withCategories: nil, andUserNotificationCenterDelegate: self)
 
