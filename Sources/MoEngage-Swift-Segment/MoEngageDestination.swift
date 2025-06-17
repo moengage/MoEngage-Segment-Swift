@@ -15,24 +15,24 @@ public class MoEngageDestination: UIResponder, DestinationPlugin {
     }
     
     public func update(settings: Settings, type: UpdateType) {
-        guard type == .initial else { return }
-        
-        guard let tempSettings: MoEngageSettings = settings.integrationSettings(forPlugin: self) else { return }
-        moengageSettings = tempSettings
-        
-        guard let appID = moengageSettings?.apiKey else {
-            MoEngageLogger.logDefault(message: "App ID not present")
+        guard
+          let tempSettings: MoEngageSettings = settings.integrationSettings(forPlugin: self),
+          moengageSettings?.apiKey != tempSettings.apiKey, // allow update only if workspace id has changed
+          case let workspaceId = tempSettings.apiKey
+        else {
+            MoEngageLogger.logDefault(logLevel: .debug, message: "Skipped SDK enablement for \(String(describing: settings.integrations?.dictionaryValue))")
             return
         }
-        
-        MoEngageCoreIntegrator.sharedInstance.enableSDKForPartner(workspaceId: appID, integrationType: .segment)
-        
+
+        MoEngageLogger.logDefault(logLevel: .debug, message: "Enabling MoEngage SDK for \(workspaceId)")
+        moengageSettings = tempSettings
+        MoEngageCoreIntegrator.sharedInstance.enableSDKForPartner(workspaceId: workspaceId, integrationType: .segment)
         DispatchQueue.main.async {
             if let segmentAnonymousID = self.analytics?.anonymousId {
-                MoEngageSDKAnalytics.sharedInstance.setUserAttribute(segmentAnonymousID, withAttributeName: MoEngageDestinationConstant.segmentAnonymousIDAttribute, forAppID: appID)
+                MoEngageSDKAnalytics.sharedInstance.setUserAttribute(segmentAnonymousID, withAttributeName: MoEngageDestinationConstant.segmentAnonymousIDAttribute, forAppID: workspaceId)
             }
         }
-        
+
         if UNUserNotificationCenter.current().delegate == nil {
             UNUserNotificationCenter.current().delegate = self
         }

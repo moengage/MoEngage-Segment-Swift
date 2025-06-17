@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         UNUserNotificationCenter.current().delegate = self
+        MoEngageSDKCore.sharedInstance.enableAllLogs()
         let sdkConfig = MoEngageSDKConfig(appId: "YOUR APP ID", dataCenter: .data_center_01)
         sdkConfig.appGroupID = "group.com.alphadevs.MoEngage.NotificationServices"
         sdkConfig.consoleLogConfig = .init(isLoggingEnabled: true, loglevel: .verbose)
