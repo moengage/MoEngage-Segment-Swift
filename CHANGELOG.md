@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+Next Release
+-------------------------------------------
+* Added support for file based initialization
+
 Version 2.01.0 *(16-06-2025)*
 -------------------------------------------
 * Updated `MoEngage-iOS-SDK` to `10.01.0`.
