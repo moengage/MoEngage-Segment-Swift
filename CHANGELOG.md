@@ -4,6 +4,7 @@ Change Log
 Version 2.01.0 *(16-06-2025)*
 -------------------------------------------
 * Updated `MoEngage-iOS-SDK` to `10.01.0`.
+* Use internal flag to update SDK instead of segment `UpdateType`
 
 Version 2.0.0 *(28-05-2025)*
 -------------------------------------------
