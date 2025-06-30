@@ -2,6 +2,18 @@ name: Create stable release
 
 on:
   workflow_dispatch:
+    inputs:
+      note:
+        description: >
+          Release note for the GitHub release.
+          Can be the developers documentation link or a custom message.
+        type: string
+        required: true
+      sdk-version:
+        description: The SDK dependency version to update to, in the package.json
+        type: string
+        required: false
+        default: ''
 
 jobs:
   release:
@@ -43,6 +55,8 @@ jobs:
         dir: source
       env:
         GITHUB_TOKEN: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
+        MO_RELEASE_NOTES: ${{ inputs.note }}
+        MO_SDK_DEPENDENCY_VERSION: ${{ inputs.sdk-version }}
         MO_CERTIFICATE_IDENTITY: ${{ secrets.MO_CERTIFICATE_IDENTITY }}
         MOENGAGE_KMM_FREE: true
 
