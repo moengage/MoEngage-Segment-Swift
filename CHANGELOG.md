@@ -1,5 +1,6 @@
-# Release Date
+# 30-06-2025
 
-## Release Version
+## 2.02.1
 
-- [NA] Updated CI/CD
+- Updated MoEngage-iOS-SDK to 10.02.2
+- Updated CI/CD
