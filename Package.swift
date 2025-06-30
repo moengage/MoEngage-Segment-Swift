@@ -25,8 +25,7 @@ let package = Package(
                     name: Context.environment["MOENGAGE_KMM_FREE"] != nil ? "MoEngageSDK" : "MoEngage-iOS-SDK",
                     package: "apple-sdk"
                 )
-            ],
-            path: "Sources/MoEngage-Swift-Segment"
+            ]
         ),
         .testTarget(name: "Segment-MoEngageTests", dependencies: ["Segment-MoEngage"]),
     ],

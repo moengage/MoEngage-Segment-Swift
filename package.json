@@ -20,6 +20,7 @@
     {
       "name": "Segment-MoEngage",
       "version": "2.02.0",
+      "changelog": "CHANGELOG.md",
       "tagPrefix": ""
     }
   ]

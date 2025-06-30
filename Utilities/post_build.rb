@@ -35,8 +35,7 @@ let package = Package(
                     name: Context.environment["MOENGAGE_KMM_FREE"] != nil ? "MoEngageSDK" : "MoEngage-iOS-SDK",
                     package: "apple-sdk"
                 )
-            ],
-            path: "Sources/MoEngage-Swift-Segment"
+            ]
         ),
         .testTarget(name: "Segment-MoEngageTests", dependencies: ["Segment-MoEngage"]),
     ],
@@ -57,6 +56,6 @@ File.open('Package.swift', 'w') do |file|
   file.write(package_swift)
 end
 
-File.open('Sources/MoEngage-Swift-Segment/MoEngageSegmentConstants+Version.swift', 'w') do |file|
+File.open('Sources/Segment-MoEngage/MoEngageSegmentConstants+Version.swift', 'w') do |file|
   file.write(version_constant)
 end

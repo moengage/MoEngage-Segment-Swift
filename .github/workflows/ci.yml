@@ -45,6 +45,12 @@ jobs:
       with:
         token: ${{ secrets.SDK_BOT_ACCESS_TOKEN }}
         path: source
+        fetch-depth: 0
+        fetch-tags: true
+
+    - name: Validate CHANGELOG
+      run: ${{ github.workspace }}/scripts/scripts/release/ios/validate_changelog.rb
+      working-directory: ./source
 
     - name: Build and Run tests
       run: rake test
