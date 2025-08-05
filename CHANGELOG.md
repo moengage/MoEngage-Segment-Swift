@@ -1,16 +1,9 @@
-# 05-08-2025
+# Release Date
 
-## 2.05.0
+## Release Version
 
-- Updated MoEngage-iOS-SDK to 10.04.0
-
-# 05-08-2025
-
-## 2.04.0
-
-- Updated MoEngage-iOS-SDK to 10.03.3
-- Updated MoEngage-iOS-SDK to 10.04.0
-- Added fallback for Segment SDK lifecycle callback misses
+- [minor] Updated MoEngage-iOS-SDK to 10.04.0
+- [minor] Added fallback for Segment SDK lifecycle callback misses
 
 # 15-07-2025
 
