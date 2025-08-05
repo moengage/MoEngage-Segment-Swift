@@ -1,5 +1,11 @@
 # 05-08-2025
 
+## 2.05.0
+
+- Updated MoEngage-iOS-SDK to 10.04.0
+
+# 05-08-2025
+
 ## 2.04.0
 
 - Updated MoEngage-iOS-SDK to 10.03.3
