@@ -19,7 +19,7 @@
   "packages": [
     {
       "name": "Segment-MoEngage",
-      "version": "2.05.0",
+      "version": "2.03.0",
       "changelog": "CHANGELOG.md",
       "tagPrefix": ""
     }
