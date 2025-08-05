@@ -10,14 +10,14 @@ In the Xcode `File` menu, click `Add Packages`.  You'll see a dialog where you c
 
 ### Manual Integration
 
-1. Get `MoEngage-Segment-Swift` xcframework(s) from [releases](https://github.com/moengage/MoEngage-Segment-Swift/releases). Use this version for checking dependencies in [`Package.swift](Package.swift).
+1. Get `MoEngage-Segment-Swift` xcframework(s) from [releases](https://github.com/moengage/MoEngage-Segment-Swift/releases). Use this version for checking dependencies in [`Package.swift`](Package.swift).
 
 1. Get MoEngage SDK XCFrameworks:
   a. Get supported MoEngage SDK version range from [`Package.swift`](Package.swift).
   a. Get XCFrameworks for `MoEngageSecurity`, `MoEngageCore`, `MoEngageObjCUtils`, `MoEngageAnalytics`, `MoEngageMessaging` and `MoEngageSDK` from URLs present in [`package.json`](https://github.com/moengage/apple-sdk/blob/master/package.json) for supported version.
 
 1. Get Segment XCFrameworks:
-  a. Get supported Segment SDK version range from [`Package.swift](Package.swift).
+  a. Get supported Segment SDK version range from [`Package.swift`](Package.swift).
   a. Get XCFrameworks for for supported version from [Segment releases](https://github.com/segmentio/analytics-swift/releases).
 
 1. Add all the XCFrameworks to `Frameworks, Libraries, and Embedded Content` section for the app target.
@@ -154,7 +154,7 @@ For more info on using **Segment for iOS** refer to [**Developer Docs**](https:/
   
 ## Change Log
 
-See [SDK Change Log](https://github.com/moengage/MoEngage-Segment-iOS/blob/master/CHANGELOG.md) for information on every released version.
+See [SDK Change Log](CHANGELOG.md) for information on every released version.
 
 ## Support
 
