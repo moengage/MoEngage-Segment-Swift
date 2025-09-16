@@ -1,3 +1,9 @@
+# Release Date
+
+## Release Version
+
+- [patch] Update usage of identities set APIs
+
 # 08-09-2025
 
 ## 2.05.0
