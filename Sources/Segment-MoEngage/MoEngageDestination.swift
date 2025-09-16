@@ -42,7 +42,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartne
     public func identify(event: IdentifyEvent) -> IdentifyEvent? {
         var actions: [(String) -> Void] = []
         if let userId = event.userId, !userId.isEmpty {
-            actions.append { MoEngageSDKAnalytics.sharedInstance.setUniqueID(userId, forAppID: $0) }
+            actions.append { MoEngageSDKAnalytics.sharedInstance.identifyUser(identity: userId, workspaceId: $0) }
         }
 
         if let segmentAnonymousID = self.analytics?.anonymousId {
@@ -188,7 +188,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartne
     public func alias(event: AliasEvent) -> AliasEvent? {
         if let userId = event.userId {
             handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { workspaceId in
-                MoEngageSDKAnalytics.sharedInstance.setAlias(userId, forAppID: workspaceId)
+                MoEngageSDKAnalytics.sharedInstance.identifyUser(identity: userId, workspaceId: workspaceId)
             }
         }
         return event
