@@ -1,8 +1,9 @@
-# Release Date
+# 24-09-2025
 
-## Release Version
+## 2.06.0
 
-- [patch] Update usage of identities set APIs
+- Updated MoEngage-iOS-SDK to 10.07.0
+- Update usage of identities set APIs
 
 # 08-09-2025
 
