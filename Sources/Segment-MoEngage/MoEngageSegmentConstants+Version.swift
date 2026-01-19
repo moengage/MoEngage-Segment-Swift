@@ -2,5 +2,5 @@
 import Foundation
 
 extension MoEngageSegmentConstant {
-    static let segmentVersion = "2.07.0"
+    static let segmentVersion = "2.08.0"
 }
