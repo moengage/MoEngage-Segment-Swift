@@ -1,3 +1,9 @@
+# Release Date
+
+## Release Version
+
+- [NA] Updated CD token usage
+
 # 19-01-2026
 
 ## 2.08.0
