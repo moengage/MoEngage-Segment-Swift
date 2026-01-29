@@ -1,8 +1,9 @@
-# Release Date
+# 29-01-2026
 
-## Release Version
+## 2.09.0
 
-- [NA] Updated CD token usage
+- Updated MoEngage-iOS-SDK to 10.10.0
+- Updated CD token usage
 
 # 19-01-2026
 

@@ -14,12 +14,12 @@
   },
   "postBuild": "Utilities/post_build.rb",
   "segmentVersion": "1.3.1",
-  "sdkVerMin": "10.09.0",
-  "sdkVerMax": "10.10.0",
+  "sdkVerMin": "10.10.0",
+  "sdkVerMax": "10.11.0",
   "packages": [
     {
       "name": "Segment-MoEngage",
-      "version": "2.08.0",
+      "version": "2.09.0",
       "changelog": "CHANGELOG.md",
       "tagPrefix": ""
     }
