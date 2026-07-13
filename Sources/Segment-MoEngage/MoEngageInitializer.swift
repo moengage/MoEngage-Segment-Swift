@@ -25,7 +25,7 @@ public final class MoEngageInitializer: NSObject {
 #else
         MoEngage.sharedInstance.initializeDefaultLiveInstance(sdkConfig)
 #endif
-        trackPluginTypeAndVersion(sdkConfig: sdkConfig)
+        trackPluginTypeAndVersion(sdkConfig: .init(sdkConfig))
     }
 
     /// Method to initialize the default instance of MoEngageSDK
@@ -34,8 +34,8 @@ public final class MoEngageInitializer: NSObject {
         MoEngage.sharedInstance.initializeDefaultInstance()
 
         guard
-            let sdkConfig = try? MoEngageInitialization.fetchSDKConfigurationFromInfoPlist(),
-            !sdkConfig.appId.isEmpty
+            let sdkConfig = try? MoEngageConfig.FileBased.fetchSDKConfigurationFromInfoPlist(),
+            !sdkConfig.workspaceId.isEmpty
         else {
             MoEngageLogger.logDefault(message: "App ID is empty. Please provide a valid App ID to setup the SDK.")
             return
@@ -52,15 +52,15 @@ public final class MoEngageInitializer: NSObject {
 #else
         MoEngage.sharedInstance.initializeLiveInstance(sdkConfig)
 #endif
-        trackPluginTypeAndVersion(sdkConfig: sdkConfig)
+        trackPluginTypeAndVersion(sdkConfig: .init(sdkConfig))
     }
     
     private static func updateSDKConfig(sdkConfig: MoEngageSDKConfig) {
         sdkConfig.setPartnerIntegrationType(integrationType: MoEngagePartnerIntegrationType.segment)
     }
     
-    private static func trackPluginTypeAndVersion(sdkConfig: MoEngageSDKConfig) {
+    private static func trackPluginTypeAndVersion(sdkConfig: MoEngageConfig.Data) {
         let integrationInfo = MoEngageIntegrationInfo(pluginType: .segment, version: MoEngageSegmentConstant.segmentVersion)
-        MoEngageCoreIntegrator.sharedInstance.addIntergrationInfo(info: integrationInfo, appId: sdkConfig.appId)
+        MoEngageCoreIntegrator.sharedInstance.addIntergrationInfo(info: integrationInfo, appId: sdkConfig.workspaceId)
     }
 }

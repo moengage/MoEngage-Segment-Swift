@@ -3,19 +3,18 @@ import MoEngageSDK
 import UIKit
 
 @objc(MoEngageDestination)
-public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartnerIntegrationHandler.Integrator {
+public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngageConfig.Partner.IntegrationHandler.Integrator {
     public let timeline = Timeline()
     public let type = PluginType.destination
     public let key = MoEngageDestinationConstant.destinationKey
     
     public var analytics: Analytics?
     private var moengageSettings: MoEngageSettings?
-    private let handler = MoEngagePartnerIntegrationHandler(type: .segment)
+    private let handler = MoEngageConfig.Partner.IntegrationHandler(type: .segment)
 
-    public override init() {
-    }
+    public nonisolated override init() {}
     
-    public func update(settings: Settings, type: UpdateType) {
+    public nonisolated func update(settings: Settings, type: UpdateType) {
         guard
           let tempSettings: MoEngageSettings = settings.integrationSettings(forPlugin: self),
           moengageSettings?.apiKey != tempSettings.apiKey, // allow update only if workspace id has changed
@@ -31,7 +30,7 @@ public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartne
         self.enabled(forWorkspaceId: workspaceId)
     }
 
-    public func enabled(forWorkspaceId workspaceId: String) {
+    public nonisolated func enabled(forWorkspaceId workspaceId: String) {
         DispatchQueue.main.async {
             if let segmentAnonymousID = self.analytics?.anonymousId {
                 MoEngageSDKAnalytics.sharedInstance.setUserAttribute(segmentAnonymousID, withAttributeName: MoEngageDestinationConstant.segmentAnonymousIDAttribute, forAppID: workspaceId)
@@ -40,16 +39,16 @@ public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartne
     }
 
     public func identify(event: IdentifyEvent) -> IdentifyEvent? {
-        var actions: [(String) -> Void] = []
+        var actions: [(String, isolated MoEngageSDKInstance) -> Void] = []
         if let userId = event.userId, !userId.isEmpty {
-            actions.append { MoEngageSDKAnalytics.sharedInstance.identifyUser(identity: userId, workspaceId: $0) }
+            actions.append { MoEngageSDKAnalytics.sharedInstance.identifyUser(identity: userId, workspaceId: $0, isolation: $1) }
         }
 
         if let segmentAnonymousID = self.analytics?.anonymousId {
             actions.append {
                 MoEngageSDKAnalytics.sharedInstance.setUserAttribute(
                     segmentAnonymousID, withAttributeName: MoEngageDestinationConstant.segmentAnonymousIDAttribute,
-                    forAppID: $0
+                    forAppID: $0, isolation: $1
                 )
             }
         }
@@ -58,68 +57,68 @@ public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartne
             if let birthday = traits[UserAttributes.birthday.rawValue] as? NSNumber {
                 let timeInterval = TimeInterval(birthday.doubleValue)
                 let formattedBirthday = Date(timeIntervalSinceReferenceDate: timeInterval)
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setDateOfBirth(formattedBirthday, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setDateOfBirth(formattedBirthday, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.birthday.rawValue)
             } else if let birthday = traits[UserAttributes.birthday.rawValue] as? Date {
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setDateOfBirth(birthday, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setDateOfBirth(birthday, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.birthday.rawValue)
             } else if let birthdayStr = traits[UserAttributes.birthday.rawValue] as? String, let birthday = self.date(fromISOdateStr: birthdayStr) {
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setDateOfBirth(birthday, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setDateOfBirth(birthday, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.birthday.rawValue)
             }
 
             if let name = traits[UserAttributes.name.rawValue] as? String {
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setName(name, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setName(name, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.name.rawValue)
             }
             if let birthday = traits[UserAttributes.isoBirthday.rawValue] as? String {
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setDateOfBirthInISO(birthday, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setDateOfBirthInISO(birthday, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.isoBirthday.rawValue)
             }
             
             if let email = traits[UserAttributes.email.rawValue] as? String {
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setEmailID(email, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setEmailID(email, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.email.rawValue)
             }
             
             if let firstName = traits[UserAttributes.firstName.rawValue] as? String {
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setFirstName(firstName, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setFirstName(firstName, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.firstName.rawValue)
             }
             
             if let lastName = traits[UserAttributes.lastName.rawValue] as? String {
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setLastName(lastName, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setLastName(lastName, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.lastName.rawValue)
             }
             
             if let gender = (traits[UserAttributes.gender.rawValue] as? String)?.lowercased() {
                 if gender == MoEngageDestinationConstant.m_male || gender == MoEngageDestinationConstant.male {
-                    actions.append { MoEngageSDKAnalytics.sharedInstance.setGender(.male, forAppID: $0) }
+                    actions.append { MoEngageSDKAnalytics.sharedInstance.setGender(.male, forAppID: $0, isolation: $1) }
                 }
                 else if gender == MoEngageDestinationConstant.f_female || gender == MoEngageDestinationConstant.female {
-                    actions.append { MoEngageSDKAnalytics.sharedInstance.setGender(.female, forAppID: $0) }
+                    actions.append { MoEngageSDKAnalytics.sharedInstance.setGender(.female, forAppID: $0, isolation: $1) }
                 }
                 else {
-                    actions.append { MoEngageSDKAnalytics.sharedInstance.setGender(.others, forAppID: $0) }
+                    actions.append { MoEngageSDKAnalytics.sharedInstance.setGender(.others, forAppID: $0, isolation: $1) }
                 }
                 traits.removeValue(forKey: UserAttributes.gender.rawValue)
             }
             
             if let phone = traits[UserAttributes.phone.rawValue] as? String {
-                actions.append { MoEngageSDKAnalytics.sharedInstance.setMobileNumber(phone, forAppID: $0) }
+                actions.append { MoEngageSDKAnalytics.sharedInstance.setMobileNumber(phone, forAppID: $0, isolation: $1) }
                 traits.removeValue(forKey: UserAttributes.phone.rawValue)
             }
             
             if let isoDate = traits[UserAttributes.isoDate.rawValue] as? [String: Any] {
                 if let date = isoDate[MoEngageDestinationConstant.date] as? Date, let attributeName = isoDate[MoEngageDestinationConstant.attributeName] as? String {
-                    actions.append { MoEngageSDKAnalytics.sharedInstance.setUserAttributeDate(date, withAttributeName: attributeName, forAppID: $0) }
+                    actions.append { MoEngageSDKAnalytics.sharedInstance.setUserAttributeDate(date, withAttributeName: attributeName, forAppID: $0, isolation: $1) }
                     traits.removeValue(forKey: UserAttributes.isoDate.rawValue)
                 }
             }
             
             if let location = traits[UserAttributes.location.rawValue] as? [String: Any] {
                 if let latitute = location[MoEngageDestinationConstant.latitude] as? Double, let longitude = location[MoEngageDestinationConstant.longitude] as? Double {
-                    actions.append { MoEngageSDKAnalytics.sharedInstance.setLocation(MoEngageGeoLocation(withLatitude: latitute, andLongitude: longitude), forAppID: $0) }
+                    actions.append { MoEngageSDKAnalytics.sharedInstance.setLocation(MoEngageGeoLocation(withLatitude: latitute, andLongitude: longitude), forAppID: $0, isolation: $1) }
                     traits.removeValue(forKey: UserAttributes.location.rawValue)
                 }
             }
@@ -127,24 +126,25 @@ public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartne
             for trait in traits {
                 switch trait.value {
                 case let val as Date:
-                    actions.append { MoEngageSDKAnalytics.sharedInstance.setUserAttributeDate(val, withAttributeName: trait.key, forAppID: $0) }
+                    actions.append { MoEngageSDKAnalytics.sharedInstance.setUserAttributeDate(val, withAttributeName: trait.key, forAppID: $0, isolation: $1) }
                 case let val as String:
                     guard let date = self.date(fromISOdateStr: val) else { fallthrough }
-                    actions.append { MoEngageSDKAnalytics.sharedInstance.setUserAttributeDate(date, withAttributeName: trait.key, forAppID: $0) }
+                    actions.append { MoEngageSDKAnalytics.sharedInstance.setUserAttributeDate(date, withAttributeName: trait.key, forAppID: $0, isolation: $1) }
                 default:
-                    actions.append { MoEngageSDKAnalytics.sharedInstance.setUserAttribute(trait.value, withAttributeName: trait.key, forAppID: $0) }
+                    actions.append { MoEngageSDKAnalytics.sharedInstance.setUserAttribute(trait.value, withAttributeName: trait.key, forAppID: $0, isolation: $1) }
                 }
             }
         }
 
-        handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { workspaceId in
+        handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { sdkInstance in
+            let workspaceId = sdkInstance.config.workspaceId
             for action in actions {
-                action(workspaceId)
+                action(workspaceId, sdkInstance)
             }
         }
         return event
     }
-    
+
     public func track(event: TrackEvent) -> TrackEvent? {
         if var generalAttributeDict = event.properties?.dictionaryValue {
             var dateAttributeDict: [String : Date] = [:]
@@ -166,9 +166,9 @@ public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartne
                     moeProperties.addDateAttribute(dateVal, withName: key)
                 }
             }
-            handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { workspaceId in
+            handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { sdkInstance in
                 MoEngageSDKAnalytics.sharedInstance.trackEvent(
-                    event.event, withProperties: moeProperties, forAppID: workspaceId
+                    event.event, withProperties: moeProperties, forAppID: sdkInstance.config.workspaceId
                 )
             }
         }
@@ -187,22 +187,25 @@ public class MoEngageDestination: UIResponder, DestinationPlugin, MoEngagePartne
     
     public func alias(event: AliasEvent) -> AliasEvent? {
         if let userId = event.userId {
-            handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { workspaceId in
-                MoEngageSDKAnalytics.sharedInstance.identifyUser(identity: userId, workspaceId: workspaceId)
+            handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { sdkInstance in
+                MoEngageSDKAnalytics.sharedInstance.identifyUser(
+                    identity: userId, workspaceId: sdkInstance.config.workspaceId, isolation: sdkInstance
+                )
             }
         }
         return event
     }
     
     public func flush() {
-        handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { workspaceId in
-            MoEngageSDKAnalytics.sharedInstance.flush(forAppID: workspaceId)
+        handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { sdkInstance in
+            MoEngageSDKAnalytics.sharedInstance.flush(forAppID: sdkInstance.config.workspaceId, isolation: sdkInstance)
         }
     }
-    
+
     public func reset() {
-        handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { workspaceId in
-            MoEngageSDKAnalytics.sharedInstance.resetUser(forAppID: workspaceId) { [weak self] _ in
+        handler.process(integrator: self, forWorkspaceId: moengageSettings?.apiKey) { sdkInstance in
+            let workspaceId = sdkInstance.config.workspaceId
+            MoEngageSDKAnalytics.sharedInstance.resetUser(forAppID: workspaceId, isolation: sdkInstance) { [weak self] _ in
                 self?.enabled(forWorkspaceId: workspaceId)
             }
         }
