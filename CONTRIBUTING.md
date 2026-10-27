@@ -96,7 +96,7 @@ under [Examples/](Examples/).
 - Run the unit tests with `rake test`.
 - Build the XCFrameworks with `rake xcframework`.
 
-All apps use iOS 13.0 as the minimum deployment target and share common settings for code signing
+All apps use iOS 15.0 as the minimum deployment target and share common settings for code signing
 and versioning.
 
 ## General Guidelines
